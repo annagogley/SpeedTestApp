@@ -9,17 +9,22 @@ import SwiftUI
 
 struct SpeedTestView: View {
     
+    private let gradient = LinearGradient(colors: [.blue, .white], startPoint: .leading, endPoint: .trailing)
+    
     var body : some View {
         GeometryReader { geo in
             VStack(spacing: 20) {
+                
                 Text("Speed Test")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .frame(alignment: .leading)
                 ZStack {
                     Circle()
-                        .strokeBorder(.blue, lineWidth: 20)
+                        .trim(from: 0.1, to: 0.9)
+                        .stroke(gradient, lineWidth: 20)
                         .frame(width: geo.size.width - 150, height: geo.size.width - 150)
+                        .rotationEffect(.degrees(90))
                     Button {
                         
                     } label: {
@@ -29,7 +34,7 @@ struct SpeedTestView: View {
                     }
                 }
                 VStack {
-                    Text("Измерьте скорость интернета")
+                    Text("Test your Internet connection speed")
                 }
                 Spacer()
             }

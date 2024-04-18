@@ -16,7 +16,7 @@ enum Tabs : Int {
 //MARK: - TabItem Model
 struct TabItem : Identifiable {
     var id = UUID()
-    var text : String
+    var text : LocalizedStringKey
     var image : Image
     var tab : Tabs
 }
