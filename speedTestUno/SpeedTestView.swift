@@ -11,7 +11,6 @@ import SwiftUI
 struct SpeedTestView: View {
     
     @ObservedObject var vm = ViewModel()
-//    var scheme: ColorScheme
     
     var body : some View {
         GeometryReader { geo in
@@ -26,6 +25,9 @@ struct SpeedTestView: View {
                             .rotationEffect(.degrees(90))
                         Button {
                             vm.goButtonClicked()
+                            if !vm.isOnUpload && !vm.isOnDownload {
+                                vm.showAlert.toggle()
+                            }
                         } label: {
                             Text("GO")
                                 .font(.largeTitle)
@@ -34,30 +36,47 @@ struct SpeedTestView: View {
                         }
                     }
                     HStack {
-                        VStack(spacing: 10) {
-                            Text("Your download speed:")
-                                .font(.system(size: 14, weight: .bold))
-                                .foregroundStyle(.stBlue)
-                            Text("\(vm.downloadSpeed == 0 ? "--" : "\(vm.downloadSpeed)") Mb/s")
-                                .font(.system(size: 14, weight: .bold))
+                        if vm.isOnDownload {
+                            VStack(spacing: 10) {
+                                Text("Your download speed:")
+                                    .font(.system(size: 14, weight: .bold))
+                                    .foregroundStyle(.stBlue)
+                                Text("\(vm.downloadSpeed == 0 ? "--" : "\(vm.downloadSpeed)") Mb/s")
+                                    .font(.system(size: 14, weight: .bold))
+                            }
+                            .overlay {
+                                if vm.isDownloading {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle())
+                                }
+                            }
+                            Spacer()
                         }
-                        Spacer()
-                        Rectangle()
-                            .frame(width: 1)
-                            .foregroundColor(.gray)
-                        Spacer()
-                        VStack(spacing: 10) {
-                            Text("Your upload speed:")
-                                .font(.system(size: 14, weight: .bold))
-                                .foregroundStyle(.stBlue)
-                            Text("\(vm.uploadSpeed == 0 ? "--" : "\(vm.uploadSpeed)") Mb/s")
-                                .font(.system(size: 14, weight: .bold))
+                        if vm.isOnUpload && vm.isOnDownload {
+                            Rectangle()
+                                .frame(width: 1, height: 50)
+                                .foregroundColor(.gray)
+                        }
+                        if vm.isOnUpload {
+                            Spacer()
+                            VStack(spacing: 10) {
+                                Text("Your upload speed:")
+                                    .font(.system(size: 14, weight: .bold))
+                                    .foregroundStyle(.stBlue)
+                                Text("\(vm.uploadSpeed == 0 ? "--" : "\(vm.uploadSpeed)") Mb/s")
+                                    .font(.system(size: 14, weight: .bold))
+                            }
+                            .overlay {
+                                if vm.isUploading {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle())
+                                }
+                            }
                         }
                     }
-                    
                     VStack(alignment: .center) {
-                        Spacer()
-                        Text("Test your Internet connection speed")
+                        Text("Test your Internet connection speed. Attention: several MB of your traffic may be wasted")
+                            .lineLimit(3)
                             .font(.caption2)
                             .foregroundStyle(.gray)
                             .multilineTextAlignment(.center)
@@ -69,13 +88,19 @@ struct SpeedTestView: View {
                 .padding([.top, .horizontal], 20)
                 .navigationTitle("Speed Test")
             }
+            .alert("Please, select at least one test option in settings", isPresented: $vm.showAlert) {
+                Button {
+                    vm.showAlert.toggle()
+                } label: {
+                    Text("OK")
+                }
+
+            }
         }
         .background(Color.purple)
-//        .environment(\.colorScheme, scheme)
     }
 }
 
 #Preview {
-//    SpeedTestView(scheme: .light)
     SpeedTestView()
 }

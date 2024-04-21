@@ -11,25 +11,41 @@ class ViewModel: ObservableObject {
     
     //MARK: - Properties
     let gradient = LinearGradient(colors: [.stBlue, .stWhite], startPoint: .leading, endPoint: .trailing)
+    
     @Published var isOnDownload = UserStorage.shared.bool(forKey: .isOnDownload)
     @Published var isOnUpload = UserStorage.shared.bool(forKey: .isOnUpload)
     @Published var selectedTheme = UserStorage.shared.theme
-    @Published var urlForSpeedTest : String = "https://link.testfile.org/PDF100MB"
-    @Published var downloadSpeed : Double = 0
-    @Published var uploadSpeed : Double = 0
+    
+    @Published var urlForDownloadSpeedTest : String = UserStorage.shared.urlDownloadString
+    @Published var urlForUploadSpeedTest : String = UserStorage.shared.urlUploadString
+    
+    @Published var downloadSpeed : Double = UserStorage.shared.double(forKey: .downloadSpeed)
+    @Published var uploadSpeed : Double = UserStorage.shared.double(forKey: .uploadSpeed)
+    
+    @Published var showAlert : Bool = false
+    
+    @Published var isDownloading = false
+    @Published var isUploading = false
 
     
     //MARK: - Methods
     func goButtonClicked() {
-        let networkMonitor = NetworkMonitor(urlString: urlForSpeedTest)        
+        HapticManager.shared.impact(style: .heavy)
+        let networkMonitor = NetworkMonitor(urlString: urlForDownloadSpeedTest)
         if isOnDownload {
+            isDownloading = true
             networkMonitor.getDownloadSpeed() { result in
                 self.downloadSpeed = Double(round(result * 100) / 100)
+                UserStorage.shared.set(self.downloadSpeed, forKey: .downloadSpeed)
+                self.isDownloading = false
             }
         }
         if isOnUpload {
-            networkMonitor.getUploadSpeed { result in
-                self.uploadSpeed = Double(round(result * 100) / 100)
+            isUploading = true
+            networkMonitor.getUploadSpeed { time in
+                self.uploadSpeed = Double(round(10.7 / time * 100) / 100)
+                UserStorage.shared.set(self.uploadSpeed, forKey: .uploadSpeed)
+                self.isUploading = false
             }
         }
     }

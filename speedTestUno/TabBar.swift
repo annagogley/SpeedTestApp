@@ -38,11 +38,10 @@ struct STTabBar: View {
                     .fill(.stBlue.gradient)
                     .frame(height: 60)
                     .padding(.horizontal, 16)
-                
                 HStack {
                     if selectedTab == .settings { Spacer() }
                     Capsule()
-                        .fill(.stWhite.gradient)
+                        .fill(.stWhite)
                         .frame(width: geometry.size.width / 2 - 16, height: 52)
                         .padding(.horizontal, 20)
                     if selectedTab == .speedTest { Spacer() }
@@ -53,6 +52,7 @@ struct STTabBar: View {
                         Button {
                             withAnimation(.spring(response: 0.6)) {
                                 selectedTab = item.tab
+                                HapticManager.shared.impact(style: .light)
                             }
                         } label: {
                             VStack(spacing: 2) {
@@ -66,8 +66,9 @@ struct STTabBar: View {
                     }
                 }
             }
-            .frame(height: 60)
         }
+//        .ignoresSafeArea(.keyboard)
+        .frame(height: 60)
     }
 }
 

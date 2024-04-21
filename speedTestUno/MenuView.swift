@@ -7,33 +7,32 @@
 
 import SwiftUI
 
+//MARK: - ROOT View
 struct MenuView: View {
     
-    @State private var selectedTab: Tabs = .speedTest
-    @Environment(\.colorScheme) private var scheme 
+    //MARK: - properties
+    @State private var selectedTab: Tabs = .speedTest //по умолчанию находимся на первой вкладке
+    @Environment(\.colorScheme) private var scheme //цветовая схема
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                switch selectedTab {
-                case .speedTest:
-//                    SpeedTestView(scheme: scheme)
-                    SpeedTestView()
-                        .transition(.move(edge: .leading))
-                case .settings:
-//                    SettingsView()
-                    SettingsView(scheme: scheme)
-                        .transition(.move(edge: .trailing))
-                }
-                VStack {
-                    Spacer()
-                        .frame(height: geometry.size.height - 80)
-                    STTabBar(selectedTab: $selectedTab)
-                }
+        //ТабБар как ZSTack
+        //        GeometryReader { geometry in
+        ZStack {
+            switch selectedTab {
+            case .speedTest:
+                SpeedTestView()
+                    .transition(.move(edge: .leading))
+            case .settings:
+                SettingsView(scheme: scheme)
+                    .transition(.move(edge: .trailing))
             }
-//            .environment(\.colorScheme, scheme)
-            .preferredColorScheme(UserStorage.shared.theme.colorScheme)
+            VStack {
+                Spacer()
+                STTabBar(selectedTab: $selectedTab)
+            }
         }
+        .ignoresSafeArea(.keyboard)
+        .preferredColorScheme(UserStorage.shared.theme.colorScheme)
     }
 }
 

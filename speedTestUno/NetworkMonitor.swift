@@ -25,10 +25,11 @@ final class NetworkMonitor {
             print("incorrect URL")
             return
         }
+        let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory, in: .userDomainMask)
         //задаем старт отчета
         let start = CFAbsoluteTimeGetCurrent()
         
-            AF.download(url)
+            AF.download(url, to: destination)
                 .responseData { response in
                     //считаем разницу во времени
                     let diff = CFAbsoluteTimeGetCurrent() - start
@@ -39,20 +40,32 @@ final class NetworkMonitor {
                         let downloadSpeed = Double(totalBytes) / self.constBitToMbit / Double(diff)
                         // возвращаем скорость
                         completionHandler(downloadSpeed)
+                        // удаляем скачанный файл
+                        if let destinationURL = response.fileURL {
+                            if FileManager.default.fileExists(atPath: destinationURL.path()) {
+                                do {
+                                    try FileManager.default.removeItem(at: destinationURL)
+                                } catch {
+                                    print(error.localizedDescription)
+                                }
+                            }
+                        }
                     }
                 }
+        
     }
     
     //MARK: - Upload speed
     func getUploadSpeed(_ completionHandler: @escaping (Double) -> Void) {
-        guard let url = URL(string: urlString) else {
-            print("incorrect URL")
-            return
-        }
+        let fileURL = Bundle.main.url(forResource: "samplePDF", withExtension: "pdf")!
         //задаем старт отчета
         let start = CFAbsoluteTimeGetCurrent()
         
-//        AF.upload(<#T##data: Data##Data#>, with: <#T##URLRequestConvertible#>)
+        AF.upload(fileURL, to: "https://httpbin.org/post").responseData { response in
+            let diff = CFAbsoluteTimeGetCurrent() - start
+            // в данном случае возвращаем время, затраченное на загрузку 10 МБ сэмплового файла на upload url
+            completionHandler(Double(diff))
+        }
     }
 }
 
