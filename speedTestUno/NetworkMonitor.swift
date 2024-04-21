@@ -10,31 +10,49 @@ import Foundation
 import UIKit
 
 final class NetworkMonitor {
+    //MARK: - Properties
     let urlString : String
+    private let constBitToMbit = Double(1048576)
     
+    //MARK: - Initializer
     init(urlString: String) {
         self.urlString = urlString
     }
     
-    func getDownloadSpeed() {
-        print(#function)
+    //MARK: - Download speed
+    func getDownloadSpeed(_ completionHandler: @escaping (Double) -> Void) {
         guard let url = URL(string: urlString) else {
             print("incorrect URL")
             return
         }
-        let queue = DispatchQueue(label: "net", qos: .userInitiated)
-        let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
-
-        print("starting download \(url.absoluteString) to \(String(describing: destination))")
-        AF.download("https://httpbin.org/image/png")
-            .downloadProgress { progress in
-                print("Download Progress: \(progress.fractionCompleted)")
-            }
-            .responseData { response in
-                if let data = response.value {
-                    let image = UIImage(data: data)
+        //задаем старт отчета
+        let start = CFAbsoluteTimeGetCurrent()
+        
+            AF.download(url)
+                .responseData { response in
+                    //считаем разницу во времени
+                    let diff = CFAbsoluteTimeGetCurrent() - start
+                    if let totalBytes = response.value?.count {
+                        //считаем скорость :
+                        // всего байтов приводим к Мб путем деления на костанту,
+                        // делим на затраченное время
+                        let downloadSpeed = Double(totalBytes) / self.constBitToMbit / Double(diff)
+                        // возвращаем скорость
+                        completionHandler(downloadSpeed)
+                    }
                 }
-            }
+    }
+    
+    //MARK: - Upload speed
+    func getUploadSpeed(_ completionHandler: @escaping (Double) -> Void) {
+        guard let url = URL(string: urlString) else {
+            print("incorrect URL")
+            return
+        }
+        //задаем старт отчета
+        let start = CFAbsoluteTimeGetCurrent()
+        
+//        AF.upload(<#T##data: Data##Data#>, with: <#T##URLRequestConvertible#>)
     }
 }
 

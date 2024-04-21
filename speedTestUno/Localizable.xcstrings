@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@ Mb/s" : {
+
+    },
     "Appearance" : {
       "localizations" : {
         "ru" : {
@@ -180,6 +183,12 @@
           }
         }
       }
+    },
+    "Your download speed:" : {
+
+    },
+    "Your upload speed:" : {
+
     }
   },
   "version" : "1.0"

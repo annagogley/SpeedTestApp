@@ -14,12 +14,24 @@ class ViewModel: ObservableObject {
     @Published var isOnDownload = UserStorage.shared.bool(forKey: .isOnDownload)
     @Published var isOnUpload = UserStorage.shared.bool(forKey: .isOnUpload)
     @Published var selectedTheme = UserStorage.shared.theme
-    @Published var urlForSpeedTest : String = "https://www.sample-videos.com/zip/30mb.zip"
+    @Published var urlForSpeedTest : String = "https://link.testfile.org/PDF100MB"
+    @Published var downloadSpeed : Double = 0
+    @Published var uploadSpeed : Double = 0
+
     
     //MARK: - Methods
     func goButtonClicked() {
-        var networkMonitor = NetworkMonitor(urlString: urlForSpeedTest)
-        networkMonitor.getDownloadSpeed()
+        let networkMonitor = NetworkMonitor(urlString: urlForSpeedTest)        
+        if isOnDownload {
+            networkMonitor.getDownloadSpeed() { result in
+                self.downloadSpeed = Double(round(result * 100) / 100)
+            }
+        }
+        if isOnUpload {
+            networkMonitor.getUploadSpeed { result in
+                self.uploadSpeed = Double(round(result * 100) / 100)
+            }
+        }
     }
     
     func toggleCheckBox(with value: Bool, for key: UserStorageType) {

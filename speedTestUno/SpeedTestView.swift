@@ -33,6 +33,28 @@ struct SpeedTestView: View {
                                 .foregroundStyle(.stBlue)
                         }
                     }
+                    HStack {
+                        VStack(spacing: 10) {
+                            Text("Your download speed:")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundStyle(.stBlue)
+                            Text("\(vm.downloadSpeed == 0 ? "--" : "\(vm.downloadSpeed)") Mb/s")
+                                .font(.system(size: 14, weight: .bold))
+                        }
+                        Spacer()
+                        Rectangle()
+                            .frame(width: 1)
+                            .foregroundColor(.gray)
+                        Spacer()
+                        VStack(spacing: 10) {
+                            Text("Your upload speed:")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundStyle(.stBlue)
+                            Text("\(vm.uploadSpeed == 0 ? "--" : "\(vm.uploadSpeed)") Mb/s")
+                                .font(.system(size: 14, weight: .bold))
+                        }
+                    }
+                    
                     VStack(alignment: .center) {
                         Spacer()
                         Text("Test your Internet connection speed")
