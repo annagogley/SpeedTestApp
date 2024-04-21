@@ -7,46 +7,50 @@
 
 import SwiftUI
 
+//MARK: - Settings View
 struct SettingsView: View {
     
-    @State private var isOnDownload = UserStorage.shared.bool(forKey: .isOnDownload)
-    @State private var isOnUpload = UserStorage.shared.bool(forKey: .isOnUpload)
+    @ObservedObject var vm = ViewModel()
+    var scheme: ColorScheme
     
     var body : some View {
-        GeometryReader { geo in
-            VStack(alignment: .leading, spacing: 24) {
-                Text("Settings")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                Text("Change theme")
-                    .font(.system(size: 16, weight: .medium))
-                Text("URL")
-                    .font(.system(size: 16, weight: .medium))
-                Toggle(isOn: $isOnDownload) {
-                    Text("Test download speed")
-                        .font(.system(size: 16, weight: .medium))
+        NavigationStack {
+            List {
+                Section("Appearance"){
+                    Picker("Change theme", selection: $vm.selectedTheme) {
+                        ForEach(Theme.allCases) { theme in
+                            Text(theme.title)
+                        }
+                    }
+                    .onChange(of: vm.selectedTheme, { oldValue, newValue in
+                        UserStorage.shared.theme = vm.selectedTheme
+                        print(oldValue, newValue)
+                    })
                 }
-                .onChange(of: isOnDownload) {
-                    UserStorage.shared.set(isOnDownload, forKey: .isOnDownload)
+                Section("URL") {
+                    TextField("URL of server for speed test", text: $vm.urlForSpeedTest)
                 }
-                Toggle(isOn: $isOnUpload) {
-                    Text("Test upload speed")
-                        .font(.system(size: 16, weight: .medium))
-                }
-                .onChange(of: isOnUpload) {
-                    UserStorage.shared.set(isOnUpload, forKey: .isOnUpload)
+                Section("Choose testing methods") {
+                    Toggle(isOn: $vm.isOnDownload) {
+                        Text("Test download speed")
+                            .font(.system(size: 16, weight: .medium))
+                    }
+                    Toggle(isOn: $vm.isOnUpload) {
+                        Text("Test upload speed")
+                            .font(.system(size: 16, weight: .medium))
+                    }
+                    .onChange(of: vm.isOnUpload) {
+                        vm.toggleCheckBox(with: vm.isOnUpload, for: .isOnUpload)
+                    }
                 }
             }
-            .padding(.top, 20)
-            .padding(.horizontal, 20)
-            .onAppear {
-                isOnDownload = UserStorage.shared.bool(forKey: .isOnDownload)
-                isOnUpload = UserStorage.shared.bool(forKey: .isOnUpload)
-            }
+            .navigationTitle("Settings")
         }
+        .environment(\.colorScheme, scheme)
+//        .preferredColorScheme(UserStorage.shared.theme.colorScheme)
     }
 }
 
 #Preview {
-    SettingsView()
+    SettingsView(scheme: .light)
 }

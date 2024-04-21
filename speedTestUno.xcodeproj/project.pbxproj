@@ -18,6 +18,11 @@
 		371CFE842BD03001002E1CE4 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 371CFE832BD03001002E1CE4 /* AlamofireDynamic */; };
 		371CFE862BD05E5F002E1CE4 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371CFE852BD05E5F002E1CE4 /* UserStorage.swift */; };
 		371CFE892BD112E9002E1CE4 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 371CFE882BD112E9002E1CE4 /* Localizable.xcstrings */; };
+		371CFE8B2BD1177B002E1CE4 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371CFE8A2BD1177B002E1CE4 /* ViewModel.swift */; };
+		371CFE8E2BD17228002E1CE4 /* SpeedcheckerReportSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 371CFE8D2BD17228002E1CE4 /* SpeedcheckerReportSDK */; };
+		371CFE902BD17228002E1CE4 /* SpeedcheckerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 371CFE8F2BD17228002E1CE4 /* SpeedcheckerSDK */; };
+		371CFE922BD175B3002E1CE4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371CFE912BD175B3002E1CE4 /* Theme.swift */; };
+		371CFE942BD17695002E1CE4 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371CFE932BD17695002E1CE4 /* NetworkMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +36,9 @@
 		371CFE7E2BD01EBE002E1CE4 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		371CFE852BD05E5F002E1CE4 /* UserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorage.swift; sourceTree = "<group>"; };
 		371CFE882BD112E9002E1CE4 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		371CFE8A2BD1177B002E1CE4 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		371CFE912BD175B3002E1CE4 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		371CFE932BD17695002E1CE4 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,8 +46,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				371CFE8E2BD17228002E1CE4 /* SpeedcheckerReportSDK in Frameworks */,
 				371CFE822BD03001002E1CE4 /* Alamofire in Frameworks */,
 				371CFE842BD03001002E1CE4 /* AlamofireDynamic in Frameworks */,
+				371CFE902BD17228002E1CE4 /* SpeedcheckerSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,9 +78,12 @@
 				371CFE6A2BD01E02002E1CE4 /* speedTestUnoApp.swift */,
 				371CFE872BD05E65002E1CE4 /* Services */,
 				371CFE782BD01E1C002E1CE4 /* MenuView.swift */,
-				371CFE7E2BD01EBE002E1CE4 /* TabBar.swift */,
 				371CFE7A2BD01E29002E1CE4 /* SpeedTestView.swift */,
 				371CFE7C2BD01E31002E1CE4 /* SettingsView.swift */,
+				371CFE8A2BD1177B002E1CE4 /* ViewModel.swift */,
+				371CFE912BD175B3002E1CE4 /* Theme.swift */,
+				371CFE7E2BD01EBE002E1CE4 /* TabBar.swift */,
+				371CFE932BD17695002E1CE4 /* NetworkMonitor.swift */,
 				371CFE882BD112E9002E1CE4 /* Localizable.xcstrings */,
 				371CFE6E2BD01E03002E1CE4 /* Assets.xcassets */,
 				371CFE702BD01E03002E1CE4 /* Preview Content */,
@@ -113,6 +126,8 @@
 			packageProductDependencies = (
 				371CFE812BD03001002E1CE4 /* Alamofire */,
 				371CFE832BD03001002E1CE4 /* AlamofireDynamic */,
+				371CFE8D2BD17228002E1CE4 /* SpeedcheckerReportSDK */,
+				371CFE8F2BD17228002E1CE4 /* SpeedcheckerSDK */,
 			);
 			productName = speedTestUno;
 			productReference = 371CFE672BD01E02002E1CE4 /* speedTestUno.app */;
@@ -145,6 +160,7 @@
 			mainGroup = 371CFE5E2BD01E02002E1CE4;
 			packageReferences = (
 				371CFE802BD03001002E1CE4 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				371CFE8C2BD17228002E1CE4 /* XCRemoteSwiftPackageReference "speedchecker-sdk-ios" */,
 			);
 			productRefGroup = 371CFE682BD01E02002E1CE4 /* Products */;
 			projectDirPath = "";
@@ -174,10 +190,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				371CFE7D2BD01E31002E1CE4 /* SettingsView.swift in Sources */,
+				371CFE922BD175B3002E1CE4 /* Theme.swift in Sources */,
 				371CFE862BD05E5F002E1CE4 /* UserStorage.swift in Sources */,
+				371CFE8B2BD1177B002E1CE4 /* ViewModel.swift in Sources */,
 				371CFE792BD01E1C002E1CE4 /* MenuView.swift in Sources */,
 				371CFE7B2BD01E29002E1CE4 /* SpeedTestView.swift in Sources */,
 				371CFE6B2BD01E02002E1CE4 /* speedTestUnoApp.swift in Sources */,
+				371CFE942BD17695002E1CE4 /* NetworkMonitor.swift in Sources */,
 				371CFE7F2BD01EBE002E1CE4 /* TabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,6 +413,14 @@
 				minimumVersion = 5.9.1;
 			};
 		};
+		371CFE8C2BD17228002E1CE4 /* XCRemoteSwiftPackageReference "speedchecker-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/speedchecker/speedchecker-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -406,6 +433,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 371CFE802BD03001002E1CE4 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = AlamofireDynamic;
+		};
+		371CFE8D2BD17228002E1CE4 /* SpeedcheckerReportSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 371CFE8C2BD17228002E1CE4 /* XCRemoteSwiftPackageReference "speedchecker-sdk-ios" */;
+			productName = SpeedcheckerReportSDK;
+		};
+		371CFE8F2BD17228002E1CE4 /* SpeedcheckerSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 371CFE8C2BD17228002E1CE4 /* XCRemoteSwiftPackageReference "speedchecker-sdk-ios" */;
+			productName = SpeedcheckerSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

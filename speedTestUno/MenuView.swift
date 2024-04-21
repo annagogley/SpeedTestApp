@@ -10,16 +10,19 @@ import SwiftUI
 struct MenuView: View {
     
     @State private var selectedTab: Tabs = .speedTest
+    @Environment(\.colorScheme) private var scheme 
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 switch selectedTab {
                 case .speedTest:
+//                    SpeedTestView(scheme: scheme)
                     SpeedTestView()
                         .transition(.move(edge: .leading))
                 case .settings:
-                    SettingsView()
+//                    SettingsView()
+                    SettingsView(scheme: scheme)
                         .transition(.move(edge: .trailing))
                 }
                 VStack {
@@ -28,6 +31,8 @@ struct MenuView: View {
                     STTabBar(selectedTab: $selectedTab)
                 }
             }
+//            .environment(\.colorScheme, scheme)
+            .preferredColorScheme(UserStorage.shared.theme.colorScheme)
         }
     }
 }

@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Appearance" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Внешний вид"
+          }
+        }
+      }
+    },
     "Change theme" : {
       "localizations" : {
         "en" : {
@@ -17,6 +27,26 @@
         }
       }
     },
+    "Choose testing methods" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выберите желаемое"
+          }
+        }
+      }
+    },
+    "Dark" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Темная"
+          }
+        }
+      }
+    },
     "GO" : {
       "localizations" : {
         "en" : {
@@ -29,6 +59,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Вперед!"
+          }
+        }
+      }
+    },
+    "Lignt" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Светлая"
           }
         }
       }
@@ -69,6 +109,16 @@
         }
       }
     },
+    "System" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Системная"
+          }
+        }
+      }
+    },
     "Test download speed" : {
       "localizations" : {
         "ru" : {
@@ -100,7 +150,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Изьмерьте скорость вашего интернет подключения"
+            "value" : "Измерьте скорость вашего интернет подключения"
           }
         }
       }
@@ -117,6 +167,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "URL"
+          }
+        }
+      }
+    },
+    "URL of server for speed test" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL сервера для спидтеста"
           }
         }
       }

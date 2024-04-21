@@ -35,14 +35,14 @@ struct STTabBar: View {
         GeometryReader { geometry in
             ZStack {
                 Capsule()
-                    .fill(.blue.gradient)
+                    .fill(.stBlue.gradient)
                     .frame(height: 60)
                     .padding(.horizontal, 16)
                 
                 HStack {
                     if selectedTab == .settings { Spacer() }
                     Capsule()
-                        .fill(.white.gradient)
+                        .fill(.stWhite.gradient)
                         .frame(width: geometry.size.width / 2 - 16, height: 52)
                         .padding(.horizontal, 20)
                     if selectedTab == .speedTest { Spacer() }
@@ -57,10 +57,10 @@ struct STTabBar: View {
                         } label: {
                             VStack(spacing: 2) {
                                 item.image
-                                    .foregroundStyle(selectedTab == item.tab ? .blue : .white)
+                                    .foregroundStyle(selectedTab == item.tab ? .stBlue : .stWhite)
                                 Text(item.text)
                                     .font(.system(size: 14, weight: .bold))
-                                    .foregroundStyle(selectedTab == item.tab ? .blue : .white)
+                                    .foregroundStyle(selectedTab == item.tab ? .stBlue : .stWhite)
                             }
                         }
                     }
