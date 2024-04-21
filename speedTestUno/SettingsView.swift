@@ -60,10 +60,6 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
         }
-        .onTapGesture {
-            hideKeyboard()
-        }
-        .ignoresSafeArea(.keyboard)
         .environment(\.colorScheme, scheme)
     }
 }
