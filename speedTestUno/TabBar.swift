@@ -67,7 +67,6 @@ struct STTabBar: View {
                 }
             }
         }
-//        .ignoresSafeArea(.keyboard)
         .frame(height: 60)
     }
 }

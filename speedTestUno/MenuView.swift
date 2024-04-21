@@ -16,7 +16,6 @@ struct MenuView: View {
     
     var body: some View {
         //ТабБар как ZSTack
-        //        GeometryReader { geometry in
         ZStack {
             switch selectedTab {
             case .speedTest:
