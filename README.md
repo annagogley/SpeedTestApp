@@ -14,10 +14,10 @@ iOS приложение, вычисляющее скорость подключ
 СкоростьЗагрузки = ОбъемТестовогоФайла / ЗатраченноеВремяНаЗагрузку
 
 <p float="left">
-    <img src="https://github.com/annagogley/SpeedTestApp/blob/main/screenshots/1.png" width="200">
-    <img src="https://github.com/annagogley/SpeedTestApp/blob/main/screenshots/2.png" width="200">
-    <img src="https://github.com/annagogley/SpeedTestApp/blob/main/screenshots/3.png" width="200">
-    <img src="https://github.com/annagogley/SpeedTestApp/blob/main/screenshots/4.png" width="200">
+    <img src="https://github.com/annagogley/SpeedTestApp/blob/main/screenshots/1.PNG" width="200">
+    <img src="https://github.com/annagogley/SpeedTestApp/blob/main/screenshots/2.PNG" width="200">
+    <img src="https://github.com/annagogley/SpeedTestApp/blob/main/screenshots/3.PNG" width="200">
+    <img src="https://github.com/annagogley/SpeedTestApp/blob/main/screenshots/4.PNG" width="200">
 </p>
 
 ### SettingsView
@@ -28,6 +28,6 @@ iOS приложение, вычисляющее скорость подключ
 - 2 тоггла-опций для теста
 
 <p float="left">
-    <img src="https://github.com/annagogley/SpeedTestApp/blob/main/screenshots/5.png" width="200">
-    <img src="https://github.com/annagogley/SpeedTestApp/blob/main/screenshots/6.png" width="200">
+    <img src="https://github.com/annagogley/SpeedTestApp/blob/main/screenshots/5.PNG" width="200">
+    <img src="https://github.com/annagogley/SpeedTestApp/blob/main/screenshots/6.PNG" width="200">
 </p>
