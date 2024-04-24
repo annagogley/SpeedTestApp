@@ -32,20 +32,34 @@ class ViewModel: ObservableObject {
     func goButtonClicked() {
         HapticManager.shared.impact(style: .heavy)
         let networkMonitor = NetworkMonitor(urlString: urlForDownloadSpeedTest)
-        if isOnDownload {
-            isDownloading = true
-            networkMonitor.getDownloadSpeed() { result in
-                self.downloadSpeed = Double(round(result * 100) / 100)
-                UserStorage.shared.set(self.downloadSpeed, forKey: .downloadSpeed)
-                self.isDownloading = false
+        //создаем группу
+        let group = DispatchGroup()
+        group.enter()
+        
+        //уведомляем о завершении теста даунлоад
+        group.notify(queue: .main) {
+            if self.isOnUpload && self.isOnDownload {
+                self.testUploadSpeed(networkMonitor: networkMonitor)
             }
         }
-        if isOnUpload {
-            isUploading = true
-            networkMonitor.getUploadSpeed { time in
-                self.uploadSpeed = Double(round(10.7 / time * 100) / 100)
-                UserStorage.shared.set(self.uploadSpeed, forKey: .uploadSpeed)
-                self.isUploading = false
+        
+        guard isOnDownload else {
+            //если даунлоада нет, то только аплоад
+            if isOnUpload {
+                DispatchQueue.main.async {
+                    self.testUploadSpeed(networkMonitor: networkMonitor) { completion in
+                        group.leave()
+                    }
+                }
+            }
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.testDownloadSpeed(networkMonitor: networkMonitor) { completion in
+                if completion {
+                    group.leave()
+                }
             }
         }
     }
@@ -56,6 +70,27 @@ class ViewModel: ObservableObject {
     
     func setColor(scheme: ColorScheme, for key: UserStorageType) {
         UserStorage.shared.set(scheme, forKey: key)
+    }
+    
+    //MARK: - Тесты вынесены в отдельные функции
+    func testDownloadSpeed(networkMonitor: NetworkMonitor, _ completionHandler: @escaping (Bool) -> Void) {
+        isDownloading = true
+        networkMonitor.getDownloadSpeed() { result in
+            self.downloadSpeed = Double(round(result * 100) / 100)
+            UserStorage.shared.set(self.downloadSpeed, forKey: .downloadSpeed)
+            self.isDownloading = false
+            completionHandler(true)
+        }
+    }
+    
+    func testUploadSpeed(networkMonitor: NetworkMonitor, _ completionHandler: @escaping (Bool) -> Void = {_ in }) {
+        isUploading = true
+        networkMonitor.getUploadSpeed { time in
+            self.uploadSpeed = Double(round(10.7 / time * 100) / 100)
+            UserStorage.shared.set(self.uploadSpeed, forKey: .uploadSpeed)
+            self.isUploading = false
+            completionHandler(true)
+        }
     }
 }
 
